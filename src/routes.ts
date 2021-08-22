@@ -3,6 +3,9 @@ import { AuthController } from "./auth/auth_controller";
 
 const router = Router();
 
+router.get("/", (req, res) => res.send({
+    message: "Hi, API is ready to use..."
+}))
 router.get("/api/user", AuthController.fetchUser);
 router.post("/api/user/signup", AuthController.signUp);
 router.post("/api/user/signin", AuthController.signIn);
