@@ -9,7 +9,7 @@ createConnection(config as ConnectionOptions).then(async (connection) => {
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
-    const port = process.env.PORT || 8000;
+    const port = process.env.PORT || 8080;
 
     app.use("/", router)
     var listener = app.listen(port, () => {
