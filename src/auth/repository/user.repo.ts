@@ -7,19 +7,14 @@ import bcrypt from "bcrypt";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-    // Get user data
+
     async fetchUser(req: any, res: Response) {
-        const Btoken = req.headers["authorization"];
-        if (typeof Btoken !== undefined) {
-            req.token = Btoken;
-            jwt.verify(req.token, "myKey", async (error: any, authData: any) => {
-                if (error) {
-                    res.send(error);
-                } else {
-                    let data = await this.createQueryBuilder("user").select().getOne();
-                    res.send(data);
-                }
-            });
+        try {
+            let data = await this.createQueryBuilder("user").select().getMany();
+            res.send(data);
+        }
+        catch (error) {
+            res.send(error);
         }
     }
 
@@ -79,9 +74,9 @@ export class UserRepository extends Repository<User> {
                             let userId = this.createQueryBuilder("user").where("user.useremail = :query", { query: useremail }).getOne();
 
                             let findUser = await this.createQueryBuilder("user").
-                            select(["user.id", "user.username", "user.useremail"]).where("user.useremail = :query", { query: useremail }).getOne();
-            
-                            
+                                select(["user.id", "user.username", "user.useremail"]).where("user.useremail = :query", { query: useremail }).getOne();
+
+
                             var token = jwt.sign({ id: userId }, "myKey", {
                                 expiresIn: "24h"
                             });
@@ -223,5 +218,22 @@ export class UserRepository extends Repository<User> {
         }
 
     }
+
+    // Get user data
+    // async fetchUser(req: any, res: Response) {
+    //     const Btoken = req.headers["authorization"];
+    //     if (typeof Btoken !== undefined) {
+    //         req.token = Btoken;
+    //         jwt.verify(req.token, "myKey", async (error: any, authData: any) => {
+    //             if (error) {
+    //                 res.send(error);
+    //             } else {
+    //                 let data = await this.createQueryBuilder("user").select().getOne();
+    //                 res.send(data);
+    //             }
+    //         });
+    //     }
+    // }
+
 
 }
