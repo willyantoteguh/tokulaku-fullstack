@@ -1,0 +1,2 @@
+GET http://localhost:8000/api/user
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6e30sImlhdCI6MTYyOTUyNjUwOSwiZXhwIjoxNjI5NjEyOTA5fQ.kU8BOMn-Pxo804JB0SA3smoqm3BYirXkkbZ-qGoPvA0
