@@ -160,7 +160,7 @@ export class UserRepository extends Repository<User> {
 
         let validate = await EmailValidator.validate(useremail)
         if (!validate) {
-            return res.status(204).send({
+             res.status(204).send({
                     authentication: false,
                     "message": "User not found"
             });
