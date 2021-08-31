@@ -2,6 +2,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:tokulaku/core/providers/auth_provider.dart';
 
 import '../../../app/shared/colors.dart';
 import '../../../app/shared/dimensions.dart';
@@ -107,18 +109,32 @@ class SignUpView extends StatelessWidget {
                       ]),
                     ),
                     vSizedBox2,
-                    Container(
-                      width: 300.0,
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                          color: whiteColor.withOpacity(1),
-                          borderRadius: BorderRadius.circular(18.0)),
-                      child: Center(
-                        child: Text("Sign Up",
-                            style: defaultText.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: "Montserrat")),
+                    InkWell(
+                      onTap: () {
+                        if (emailController.text.isNotEmpty &&
+                            nameController.text.isNotEmpty &&
+                            passwordController.text.isNotEmpty) {
+                          Provider.of<AuthProvider>(context, listen: false)
+                              .signUp({
+                            "username": nameController.text,
+                            "useremail": emailController.text,
+                            "userpassword": passwordController.text
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: 300.0,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                            color: whiteColor.withOpacity(1),
+                            borderRadius: BorderRadius.circular(18.0)),
+                        child: Center(
+                          child: Text("Sign Up",
+                              style: defaultText.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: "Montserrat")),
+                        ),
                       ),
                     )
                   ],
